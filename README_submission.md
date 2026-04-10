@@ -50,6 +50,15 @@ npm run preview
 | `package.json` / `package-lock.json` | 依赖与脚本定义、锁定版本。 |
 | `jsconfig.json` | 编辑器路径提示（可选）。 |
 
+## GitHub Pages（子路径 `/visualization-2/`）
+
+- `vite.config.js` 中 `base` 需与仓库名一致；构建产物中 JS/CSS 会带此前缀。
+- `npm run build` 结束时会生成 **`dist/404.html`**（与 `index.html` 相同），便于在 GitHub Pages 上**直接访问或刷新子路由**（如 `/visualization-2/spatial`）时仍能加载 SPA。
+- `public/.nojekyll` 会复制到 `dist/`，关闭 Jekyll 处理，避免静态资源异常。
+- 运行时数据来自打包进前端的 `worldBankDataset.json`（构建阶段生成），**无需**在浏览器中请求 `worldbank-csv/`。
+
+本地预览生产包时，请使用终端里带 **`/visualization-2/`** 的地址（例如 `http://127.0.0.1:4173/visualization-2/`）。
+
 ## 备注
 
 - 请勿提交 `node_modules/`、`dist/` 等目录；安装与构建命令见上文。

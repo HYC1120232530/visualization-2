@@ -5,8 +5,10 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
+import { withBaseUrl } from '../utils/withBaseUrl.js'
 
-const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
+/** 开发时 Vite 的 open-in-editor 位于 BASE_URL 之下，避免子路径部署时请求站点根导致 404 */
+const openReadmeInEditor = () => fetch(withBaseUrl('__open-in-editor?file=README.md'))
 </script>
 
 <template>

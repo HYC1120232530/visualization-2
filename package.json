@@ -6,7 +6,7 @@
   "scripts": {
     "generate:data": "node scripts/generate-worldbank-data.mjs",
     "dev": "npm run generate:data && vite",
-    "build": "npm run generate:data && vite build",
+    "build": "npm run generate:data && vite build && node scripts/copy-github-pages-spa-fallback.mjs",
     "preview": "vite preview",
     "lint": "run-s lint:*",
     "lint:oxlint": "oxlint . --fix",
