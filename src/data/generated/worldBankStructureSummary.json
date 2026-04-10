@@ -1,0 +1,186 @@
+[
+  {
+    "metric": "gdp",
+    "label": "GDP",
+    "fullName": "Gross Domestic Product",
+    "unit": "current US$",
+    "metricKey": "gdp",
+    "sourceFile": "C:\\Users\\admin\\Desktop\\可视化第二次作业\\GDP ( current  US$ )\\API_NY.GDP.MKTP.CD_DS2_en_csv_v2_207086.csv",
+    "headerRowNumber": 5,
+    "dataStartRowNumber": 6,
+    "countryNameColumn": 0,
+    "countryCodeColumn": 1,
+    "indicatorNameColumn": 2,
+    "indicatorCodeColumn": 3,
+    "yearColumns": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "sampleRows": [
+      {
+        "countryName": "Aruba",
+        "countryCode": "ABW",
+        "indicatorName": "GDP (current US$)",
+        "indicatorCode": "NY.GDP.MKTP.CD"
+      },
+      {
+        "countryName": "Africa Eastern and Southern",
+        "countryCode": "AFE",
+        "indicatorName": "GDP (current US$)",
+        "indicatorCode": "NY.GDP.MKTP.CD"
+      },
+      {
+        "countryName": "Afghanistan",
+        "countryCode": "AFG",
+        "indicatorName": "GDP (current US$)",
+        "indicatorCode": "NY.GDP.MKTP.CD"
+      }
+    ]
+  },
+  {
+    "metric": "gdpGrowth",
+    "label": "GDP growth",
+    "fullName": "GDP growth (annual %)",
+    "unit": "annual %",
+    "metricKey": "gdpGrowth",
+    "sourceFile": "C:\\Users\\admin\\Desktop\\可视化第二次作业\\GDP growth ( annual % )\\API_NY.GDP.MKTP.KD.ZG_DS2_en_csv_v2_213498.csv",
+    "headerRowNumber": 5,
+    "dataStartRowNumber": 6,
+    "countryNameColumn": 0,
+    "countryCodeColumn": 1,
+    "indicatorNameColumn": 2,
+    "indicatorCodeColumn": 3,
+    "yearColumns": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "sampleRows": [
+      {
+        "countryName": "Aruba",
+        "countryCode": "ABW",
+        "indicatorName": "GDP growth (annual %)",
+        "indicatorCode": "NY.GDP.MKTP.KD.ZG"
+      },
+      {
+        "countryName": "Africa Eastern and Southern",
+        "countryCode": "AFE",
+        "indicatorName": "GDP growth (annual %)",
+        "indicatorCode": "NY.GDP.MKTP.KD.ZG"
+      },
+      {
+        "countryName": "Afghanistan",
+        "countryCode": "AFG",
+        "indicatorName": "GDP growth (annual %)",
+        "indicatorCode": "NY.GDP.MKTP.KD.ZG"
+      }
+    ]
+  },
+  {
+    "metric": "gdpPerCapita",
+    "label": "GDP per capita",
+    "fullName": "GDP per capita (current US$)",
+    "unit": "current US$",
+    "metricKey": "gdpPerCapita",
+    "sourceFile": "C:\\Users\\admin\\Desktop\\可视化第二次作业\\GDP per capita ( current US$ )\\API_NY.GDP.PCAP.CD_DS2_en_csv_v2_207559.csv",
+    "headerRowNumber": 5,
+    "dataStartRowNumber": 6,
+    "countryNameColumn": 0,
+    "countryCodeColumn": 1,
+    "indicatorNameColumn": 2,
+    "indicatorCodeColumn": 3,
+    "yearColumns": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "sampleRows": [
+      {
+        "countryName": "Aruba",
+        "countryCode": "ABW",
+        "indicatorName": "GDP per capita (current US$)",
+        "indicatorCode": "NY.GDP.PCAP.CD"
+      },
+      {
+        "countryName": "Africa Eastern and Southern",
+        "countryCode": "AFE",
+        "indicatorName": "GDP per capita (current US$)",
+        "indicatorCode": "NY.GDP.PCAP.CD"
+      },
+      {
+        "countryName": "Afghanistan",
+        "countryCode": "AFG",
+        "indicatorName": "GDP per capita (current US$)",
+        "indicatorCode": "NY.GDP.PCAP.CD"
+      }
+    ]
+  },
+  {
+    "metric": "unemployment",
+    "label": "unemployment",
+    "fullName": "Unemployment, total (% of total labor force) (modeled ILO estimate)",
+    "unit": "% of total labor force",
+    "metricKey": "unemployment",
+    "sourceFile": "C:\\Users\\admin\\Desktop\\可视化第二次作业\\unemployment, total\\API_SL.UEM.TOTL.ZS_DS2_en_csv_v2_213507.csv",
+    "headerRowNumber": 5,
+    "dataStartRowNumber": 6,
+    "countryNameColumn": 0,
+    "countryCodeColumn": 1,
+    "indicatorNameColumn": 2,
+    "indicatorCodeColumn": 3,
+    "yearColumns": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "sampleRows": [
+      {
+        "countryName": "Aruba",
+        "countryCode": "ABW",
+        "indicatorName": "Unemployment, total (% of total labor force) (modeled ILO estimate)",
+        "indicatorCode": "SL.UEM.TOTL.ZS"
+      },
+      {
+        "countryName": "Africa Eastern and Southern",
+        "countryCode": "AFE",
+        "indicatorName": "Unemployment, total (% of total labor force) (modeled ILO estimate)",
+        "indicatorCode": "SL.UEM.TOTL.ZS"
+      },
+      {
+        "countryName": "Afghanistan",
+        "countryCode": "AFG",
+        "indicatorName": "Unemployment, total (% of total labor force) (modeled ILO estimate)",
+        "indicatorCode": "SL.UEM.TOTL.ZS"
+      }
+    ]
+  }
+]
