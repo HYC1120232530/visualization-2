@@ -1,4 +1,4 @@
-# 推送 main 分支时构建并部署到 GitHub Pages（产物来自 world-vis/dist）
+# 推送 main 分支时构建并部署到 GitHub Pages（仓库根目录即为 Vite 项目，产物为 dist/）
 name: Deploy to GitHub Pages
 
 on:
@@ -27,20 +27,18 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-          cache-dependency-path: world-vis/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        working-directory: world-vis
         run: npm install
 
       - name: Build
-        working-directory: world-vis
         run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: world-vis/dist
+          path: dist
 
   deploy:
     needs: build
