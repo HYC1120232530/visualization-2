@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AppShell from '../layouts/AppShell.vue'
 import CompareView from '../views/CompareView.vue'
+import DocumentationView from '../views/DocumentationView.vue'
 import HomeView from '../views/HomeView.vue'
 import SpatialView from '../views/SpatialView.vue'
 import TemporalView from '../views/TemporalView.vue'
@@ -13,6 +14,7 @@ const router = createRouter({
       component: AppShell,
       children: [
         { path: '', name: 'home', component: HomeView },
+        { path: 'documentation', name: 'documentation', component: DocumentationView },
         { path: 'spatial', name: 'spatial', component: SpatialView },
         { path: 'temporal', name: 'temporal', component: TemporalView },
         { path: 'compare', name: 'compare', component: CompareView },

@@ -13,8 +13,10 @@ const compareUi = computed(() => (route.name === 'compare' ? 'panel' : 'off'))
 const navQuery = computed(() => buildFilterQueryFromState())
 const compareNavQuery = computed(() => buildCompareNavQuery())
 
-/** 空间分布、主题首页：不展示全局筛选与时间轴（主题页为入口，筛选在各探索页） */
-const showGlobalFilters = computed(() => route.name !== 'spatial' && route.name !== 'home')
+/** 空间分布、主题首页、说明文档：不展示全局筛选与时间轴（首页/文档为入口，筛选在各探索页） */
+const showGlobalFilters = computed(
+  () => route.name !== 'spatial' && route.name !== 'home' && route.name !== 'documentation',
+)
 
 const {
   dataset,
@@ -62,7 +64,17 @@ watch(
             :class="{ 'shell__link--active': isExactActive }"
             @click="navigate"
           >
-            主题
+            首页
+          </a>
+        </RouterLink>
+        <RouterLink v-slot="{ isExactActive, href, navigate }" custom :to="{ name: 'documentation', query: navQuery }">
+          <a
+            :href="href"
+            class="shell__link"
+            :class="{ 'shell__link--active': isExactActive }"
+            @click="navigate"
+          >
+            说明文档
           </a>
         </RouterLink>
         <RouterLink v-slot="{ isActive, href, navigate }" custom :to="{ name: 'spatial', query: navQuery }">

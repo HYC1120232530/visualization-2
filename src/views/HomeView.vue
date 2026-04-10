@@ -10,17 +10,12 @@ const compareNavQuery = computed(() => buildCompareNavQuery())
 <template>
   <div class="home">
     <section class="home__intro dash-card anim-rise">
-      <h2 class="home__h2">你要回答的问题</h2>
-      <p class="home__lead">
-        选定指标与年份后，<strong>主国家</strong>的读数处于全球什么位置？这些年<strong>水平与增速</strong>如何变化？若要做<strong>两国并排</strong>，请进入专门的对比页。下方入口进入各探索页即可操作筛选。
-      </p>
-      <ol class="home__steps">
-        <li>
-          从下方进入<strong>空间分布</strong>、<strong>时间演变</strong>或<strong>两国对比</strong>后，在对应页顶部选定<strong>指标</strong>、<strong>主国家</strong>与<strong>年份</strong>（时间轴在需用的页面提供）。
-        </li>
-        <li>在<strong>空间分布</strong>看全球格局与排名切片；在<strong>时间演变</strong>看主国折线与同比。</li>
-        <li>在<strong>两国对比</strong>页选择对比国，查看双序列趋势、同比与当前年差值。</li>
-      </ol>
+      <h2 class="home__h2">课程说明与入口</h2>
+      <div class="home__doc-actions">
+        <RouterLink class="home__doc-btn" :to="{ name: 'documentation', query: navQuery }">
+          打开说明文档
+        </RouterLink>
+      </div>
     </section>
 
     <div class="home__cta anim-rise anim-rise-delay-1">
@@ -62,33 +57,35 @@ const compareNavQuery = computed(() => buildCompareNavQuery())
   letter-spacing: -0.02em;
 }
 
-.home__lead {
-  margin: 0;
-  max-width: 68ch;
-  font-size: 0.9rem;
-  line-height: 1.65;
-  color: var(--dash-muted);
+.home__doc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 14px;
 }
 
-.home__lead strong {
-  color: #e2e8f0;
+.home__doc-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 0.875rem;
   font-weight: 700;
+  text-decoration: none;
+  color: #0f172a;
+  background: linear-gradient(135deg, #38bdf8, #22d3ee);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.25);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.home__steps {
-  margin: 16px 0 0;
-  padding-left: 1.25rem;
-  color: var(--dash-muted);
-  font-size: 0.8125rem;
-  line-height: 1.7;
-}
-
-.home__steps li {
-  margin-bottom: 8px;
-}
-
-.home__steps strong {
-  color: #cbd5e1;
+@media (hover: hover) {
+  .home__doc-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 28px rgba(56, 189, 248, 0.35);
+  }
 }
 
 .home__cta {
