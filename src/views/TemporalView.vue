@@ -15,7 +15,6 @@ const {
   compareSeries,
   yoyYears,
   yoyPrimarySeries,
-  yoyCompareSeries,
   setPrimaryCountry,
 } = useWorldBankData()
 
@@ -69,11 +68,8 @@ const temporalTabs = [
         embedded
         :yoy-years="yoyYears"
         :yoy-primary-series="yoyPrimarySeries"
-        :yoy-compare-series="yoyCompareSeries"
         :current-metric="selectedMetric"
         :primary-country="selectedCountry.country"
-        compare-country=""
-        :compare-enabled="false"
       />
     </TabbedModule>
   </div>

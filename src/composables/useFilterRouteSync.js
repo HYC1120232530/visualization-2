@@ -1,6 +1,10 @@
 import { onMounted, ref, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { buildFilterQueryFromState, useWorldBankData } from './useWorldBankData'
+import {
+  buildFilterQueryFromState,
+  pickDefaultCompareCountryCodeForPrimary,
+  useWorldBankData,
+} from './useWorldBankData'
 
 /**
  * 将核心筛选条件同步到 URL query，支持刷新/分享/后退恢复；与 useWorldBankData 模块级 state 配合。
@@ -32,6 +36,19 @@ export function useFilterRouteSync() {
     )
   }
 
+  /** 将当前 state 写回 URL（播放年份时暂缓同步年份，避免 router.replace 触发整树重渲染、打断图表动画） */
+  function replaceQueryFromStateIfNeeded() {
+    if (syncPhase.value === 'fromRoute') return
+    const q = buildFilterQueryFromState()
+    if (queryMatchesState(route.query)) return
+    syncPhase.value = 'fromState'
+    router.replace({ query: q }).finally(() => {
+      nextTick(() => {
+        syncPhase.value = 'idle'
+      })
+    })
+  }
+
   function applyQueryToState(q) {
     if (typeof q.metric === 'string' && dataset.metrics.some((m) => m.key === q.metric)) {
       setMetric(q.metric)
@@ -54,8 +71,7 @@ export function useFilterRouteSync() {
     if (typeof q.compare === 'string' && dataset.dataIndex[q.compare]) {
       setCompareCountry(q.compare)
     } else {
-      const others = dataset.countries.filter((c) => c.countryCode !== state.selectedCountryCode)
-      const fallback = others[0]?.countryCode
+      const fallback = pickDefaultCompareCountryCodeForPrimary(state.selectedCountryCode)
       if (fallback) setCompareCountry(fallback)
     }
   }
@@ -88,21 +104,28 @@ export function useFilterRouteSync() {
   watch(
     () => [
       state.selectedMetric,
-      state.selectedYear,
       state.selectedCountryCode,
       state.compareEnabled,
       state.compareCountryCode,
     ],
     () => {
-      if (syncPhase.value === 'fromRoute') return
-      const q = buildFilterQueryFromState()
-      if (queryMatchesState(route.query)) return
-      syncPhase.value = 'fromState'
-      router.replace({ query: q }).finally(() => {
-        nextTick(() => {
-          syncPhase.value = 'idle'
-        })
-      })
+      replaceQueryFromStateIfNeeded()
+    },
+  )
+
+  watch(
+    () => state.selectedYear,
+    () => {
+      if (state.isPlaying) return
+      replaceQueryFromStateIfNeeded()
+    },
+  )
+
+  watch(
+    () => state.isPlaying,
+    (playing) => {
+      if (playing) return
+      replaceQueryFromStateIfNeeded()
     },
   )
 

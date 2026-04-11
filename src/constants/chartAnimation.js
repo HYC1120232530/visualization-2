@@ -5,7 +5,7 @@ export const chartAnimation = {
   animation: true,
   animationDuration: 480,
   animationEasing: 'quarticOut',
-  animationDurationUpdate: 750,
+  animationDurationUpdate: 640,
   animationEasingUpdate: 'cubicOut',
 }
 
@@ -16,5 +16,7 @@ export function setChartOptionMerge(chart, option, replaceMerge = []) {
   chart.setOption(option, opt)
 }
 
-/** 与 animationDurationUpdate 对齐的播放步进间隔（略大于动画时长，避免切帧抢跑） */
-export const PLAYBACK_STEP_MS = 820
+/**
+ * 自动播放年份步进间隔（须大于 animationDurationUpdate，保证雷达/折线等更新动画播完再切年）
+ */
+export const PLAYBACK_STEP_MS = 900

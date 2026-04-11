@@ -76,7 +76,7 @@
       <ul class="doc__list">
         <li>
           <strong>数据：</strong>世界银行（World Bank）公开数据，通过课程提供的 CSV（World Bank Data API 导出格式）接入；指标包括
-          NY.GDP.MKTP.CD（GDP，现价美元）、NY.GDP.MKTP.KD.ZG（GDP 增长率）、NY.GDP.PCAP.CD（人均 GDP）、SL.UEM.TOTL.ZS（失业率）等；时间范围以站内处理为准（2015–2024）。
+          NY.GDP.MKTP.CD（GDP，现价美元）、NY.GDP.MKTP.KD.ZG（GDP 增长率）、NY.GDP.PCAP.CD（人均 GDP）、SL.UEM.TOTL.ZS（失业率）；时间范围为2015-2024。
         </li>
         <li>
           <strong>地理底图：</strong>项目中使用的世界地图 GeoJSON 用于与国家名称匹配；来源随代码库内资源文件标注。
@@ -85,7 +85,7 @@
           <strong>工具与库：</strong>Apache ECharts（地图与统计图）、Vue 3、Vue Router、Vite；开发依赖见 <code>package.json</code>。
         </li>
         <li>
-          <strong>可视化参考：</strong>世界银行官网指标页、ECharts 官方图表示例（地图与笛卡尔坐标系组合）作为布局与配色克制程度的参考，实现为原创交互与样式，非复刻单一案例。
+          <strong>可视化参考：</strong>世界银行官网指标页、ECharts 官方图表示例（地图与笛卡尔坐标系组合）作为布局与配色克制程度的参考。
         </li>
       </ul>
     </section>
@@ -98,7 +98,7 @@
       </p>
       <ul class="doc__list">
         <li>
-          <strong>总耗时（估算）：</strong>约 <strong>18–26 工时</strong>（含需求对齐、实现与文档）。个人节奏不同，此区间为诚实估算。
+          <strong>总耗时（估算）：</strong>约 <strong>22–30 工时</strong>（含需求对齐、实现与文档）。个人节奏不同，此区间为诚实估算。
         </li>
         <li>
           <strong>最耗时部分：</strong>

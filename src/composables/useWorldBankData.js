@@ -27,19 +27,35 @@ const initialPrimaryCountryCode = dataset.dataIndex[DEFAULT_PRIMARY_CODE]
   ? DEFAULT_PRIMARY_CODE
   : dataset.countries.find((country) => country.hasMapMatch)?.countryCode ?? dataset.countries[0]?.countryCode
 
+/** 开启两国对比时默认对比国：美国（主国为美国或数据集中无 USA 时回退为第一个非主国） */
+const DEFAULT_COMPARE_COUNTRY_CODE = 'USA'
+
+export function pickDefaultCompareCountryCodeForPrimary(primaryCode) {
+  const options = dataset.countries.filter((country) => country.countryCode !== primaryCode)
+  if (
+    dataset.dataIndex[DEFAULT_COMPARE_COUNTRY_CODE] &&
+    options.some((c) => c.countryCode === DEFAULT_COMPARE_COUNTRY_CODE)
+  ) {
+    return DEFAULT_COMPARE_COUNTRY_CODE
+  }
+  return options[0]?.countryCode ?? null
+}
+
 const state = reactive({
   selectedMetric: defaultMetricKey,
   selectedCountryCode: initialPrimaryCountryCode,
   selectedYear: findLatestYearWithMetricData(defaultMetricKey),
-  compareCountryCode:
-    dataset.countries.find((country) => country.countryCode !== initialPrimaryCountryCode)?.countryCode ?? null,
+  compareCountryCode: pickDefaultCompareCountryCodeForPrimary(initialPrimaryCountryCode),
   compareEnabled: false,
   mapSelectionMode: 'primary',
   isPlaying: false,
   error: '',
 })
 
-let playbackTimer = null
+/** setInterval 句柄：播放年份步进 */
+let playbackIntervalId = null
+
+const pickDefaultCompareCountryCode = () => pickDefaultCompareCountryCodeForPrimary(state.selectedCountryCode)
 
 const years = computed(() => dataset.years)
 const metrics = computed(() => dataset.metrics)
@@ -90,7 +106,7 @@ const setPrimaryCountry = (countryCode) => {
   state.selectedCountryCode = countryCode
 
   if (state.compareEnabled && state.compareCountryCode === countryCode) {
-    state.compareCountryCode = getCompareOptions()[0]?.countryCode ?? null
+    state.compareCountryCode = pickDefaultCompareCountryCode()
   }
 }
 
@@ -109,7 +125,7 @@ const toggleCompareMode = (enabled) => {
   }
 
   if (!state.compareCountryCode || state.compareCountryCode === state.selectedCountryCode) {
-    state.compareCountryCode = getCompareOptions()[0]?.countryCode ?? null
+    state.compareCountryCode = pickDefaultCompareCountryCode()
   }
 }
 
@@ -129,28 +145,12 @@ const handleCountrySelection = (countryCode) => {
 }
 
 const stopPlayback = () => {
-  if (playbackTimer) {
-    clearTimeout(playbackTimer)
-    playbackTimer = null
+  if (playbackIntervalId != null) {
+    clearInterval(playbackIntervalId)
+    playbackIntervalId = null
   }
 
   state.isPlaying = false
-}
-
-const schedulePlaybackStep = () => {
-  playbackTimer = setTimeout(() => {
-    playbackTimer = null
-    if (!state.isPlaying) return
-
-    const index = dataset.years.indexOf(state.selectedYear)
-    if (index >= dataset.years.length - 1) {
-      stopPlayback()
-      return
-    }
-
-    state.selectedYear = dataset.years[index + 1]
-    schedulePlaybackStep()
-  }, PLAYBACK_STEP_MS)
 }
 
 const startPlayback = () => {
@@ -161,7 +161,17 @@ const startPlayback = () => {
   }
 
   state.isPlaying = true
-  schedulePlaybackStep()
+  playbackIntervalId = setInterval(() => {
+    if (!state.isPlaying) return
+
+    const index = dataset.years.indexOf(state.selectedYear)
+    if (index >= dataset.years.length - 1) {
+      stopPlayback()
+      return
+    }
+
+    state.selectedYear = dataset.years[index + 1]
+  }, PLAYBACK_STEP_MS)
 }
 
 const togglePlayback = () => {
@@ -278,9 +288,6 @@ const buildYoySeries = (countryCode) =>
   })
 
 const yoyPrimarySeries = computed(() => buildYoySeries(state.selectedCountryCode))
-const yoyCompareSeries = computed(() =>
-  state.compareEnabled && state.compareCountryCode ? buildYoySeries(state.compareCountryCode) : [],
-)
 
 /** 与 useFilterRouteSync 中 URL 约定一致，供主导航等在切换子路由时携带 query，避免清空 query 触发错误同步与导航竞态。 */
 export function buildFilterQueryFromState() {
@@ -302,9 +309,9 @@ export function buildFilterQueryFromState() {
  */
 export function buildCompareNavQuery() {
   const primary = state.selectedCountryCode
-  const firstOther = getCompareOptions()[0]?.countryCode
+  const defaultOther = pickDefaultCompareCountryCodeForPrimary(primary)
   const compareCode =
-    state.compareCountryCode && state.compareCountryCode !== primary ? state.compareCountryCode : firstOther
+    state.compareCountryCode && state.compareCountryCode !== primary ? state.compareCountryCode : defaultOther
   const q = {
     metric: state.selectedMetric,
     year: String(state.selectedYear),
@@ -343,7 +350,6 @@ export function useWorldBankData() {
     compareBarData,
     yoyYears,
     yoyPrimarySeries,
-    yoyCompareSeries,
     getRecordByYear,
     getMetricValue,
     setMetric,

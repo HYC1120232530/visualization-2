@@ -15,6 +15,8 @@ const { metrics, selectedCountry, compareCountry, getMetricValue, state } = useW
 const { formatMetricValue } = useMetricFormatter()
 
 const chartRef = ref(null)
+/** 单国/双国切换时需整表 replace；仅年份变化时 merge，便于 ECharts 播放更新动画 */
+const radarSeriesLayoutKey = ref('')
 let chartInstance = null
 let resizeObserver = null
 
@@ -109,6 +111,10 @@ const renderChart = () => {
     })
   }
 
+  const layoutKey = hasCompare ? 'dual' : 'single'
+  const structureChanged = radarSeriesLayoutKey.value !== layoutKey
+  radarSeriesLayoutKey.value = layoutKey
+
   setChartOptionMerge(
     chartInstance,
     {
@@ -165,6 +171,7 @@ const renderChart = () => {
       series: [
         {
           type: 'radar',
+          ...chartAnimation,
           emphasis: {
             focus: 'series',
           },
@@ -172,7 +179,7 @@ const renderChart = () => {
         },
       ],
     },
-    ['series', 'radar', 'tooltip'],
+    structureChanged ? ['series', 'radar', 'tooltip'] : [],
   )
 
   nextTick(() => {
