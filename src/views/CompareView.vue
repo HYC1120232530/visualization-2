@@ -11,7 +11,6 @@ useWorldBankData()
       <h2 class="view__title">两国对比</h2>
       <p class="view__desc">
         在全局选择主国家、对比国家与年份；雷达图在同一图中对比<strong>全部指标</strong>（各轴为不同量纲，轴上为两国相对位置）。
-        指标由 URL 或自其它页面带入。离开本页后对比会自动关闭。
       </p>
     </header>
 
