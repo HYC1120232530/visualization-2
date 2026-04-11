@@ -245,8 +245,7 @@ onBeforeUnmount(() => {
     ></div>
     <p class="compare-radar__note">
       每个轴对应一项指标。展示刻度为：在该轴上取两国中的<strong>较大值为 100</strong>，两国数值按
-      <code>(值 / 较大值) × 100</code> 同比例映射（例如 4 与 3 → 100 与 75），避免旧版「最小值映射为 0」导致较小值被压到轴心。
-      Tooltip 中仍为<strong>原始数据</strong>，未改写。
+      <code>(值 / 较大值) × 100</code> 同比例映射（例如 4 与 3 → 100 与 75）。
     </p>
   </section>
 </template>

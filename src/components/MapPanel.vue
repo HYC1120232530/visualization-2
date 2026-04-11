@@ -200,6 +200,7 @@ onBeforeUnmount(() => {
       :class="{ 'map-chart--embedded': embedded }"
       style="min-width: 0; min-height: 200px"
     ></div>
+    <p v-if="embedded" class="map-hint" role="note">白色区域代表无数据。</p>
   </section>
 </template>
 
@@ -217,4 +218,13 @@ onBeforeUnmount(() => {
   height: var(--tabbed-chart-min-h, 420px);
   min-height: 360px;
 }
+
+.map-hint {
+  margin: 10px 0 0;
+  max-width: 72ch;
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: #64748b;
+}
+
 </style>
